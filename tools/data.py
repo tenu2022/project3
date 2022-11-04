@@ -1,5 +1,9 @@
 from gpiozero import MCP3008
+temperature = MCP3008(6)
+lightValue = MCP3008(7)
 
 def getTemperature():
-    temperature = MCP3008(7)
-    print(temperature.value*3.3*100)
+    print("溫度:",temperature.value*3.3*100)
+
+def getLightValue():
+    print("光線:",lightValue.value*1000)
