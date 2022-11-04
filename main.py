@@ -22,7 +22,7 @@ class Window(tk.Tk):
         self.after_id = self.label.after(1000,self.change_time)
 
     def window_time(self):
-        data.getTemperature()
+        data.getDistance()
         data.getLightValue()
         self.window_id = self.after(1000 * 5,self.window_time)
 
