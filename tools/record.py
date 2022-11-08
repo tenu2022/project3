@@ -8,8 +8,10 @@ if not os.path.isdir(directory):  # 取得絕對路徑，尚未建立前狀態�
     os.makedirs(directory)  # 建立record目錄，true才會執行
     # 一旦執行完第一次後，布林值就變成false，所以第二次後就永遠是false，不會再建立。
 
+filename_abs = None
 
 def recordData(distance,lightValue):
+    global filename_abs
     current = datetime.now()   #抓取現在的時間
     current_date = current.date()   #抓取現在時間中的日期
     filename = current_date.strftime("%Y-%m-%d.csv")  #將抓到的日期轉為文字str
@@ -25,3 +27,9 @@ def recordData(distance,lightValue):
     with open(filename_abs,"a",newline='') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerow([current.strftime("%Y-%m-%d %H:%M:%S"),distance,lightValue])
+#讀取資料
+def getData():
+    with open(filename_abs,"r",newline='') as file:
+        csv_reader = csv.reader(file)
+        data = list(csv_reader)
+    return data
