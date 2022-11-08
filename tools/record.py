@@ -1,4 +1,5 @@
 import os
+import csv
 from datetime import datetime
 
 #建立record目錄
@@ -13,8 +14,14 @@ def recordData(distance,lightValue):
     current_date = current.date()   #抓取現在時間中的日期
     filename = current_date.strftime("%Y-%m-%d.csv")  #將抓到的日期轉為文字str
     currentFiles = os.listdir(directory)  #使用listdir()顯示目錄內容
+    filename_abs = f"{directory}/{filename}"
     if filename not in currentFiles:
         #建立檔案
-        file = open(f"{directory}/{filename}",'w',encoding='utf-8')
+        file = open(filename_abs,'w',encoding='utf-8',newline='')
+        header_writer = csv.writer(file)
+        header_writer.writerow(["日期","距離","光線"])
         file.close()
-    
+    #加入資料
+    with open(filename_abs,"a",newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([current.strftime("%Y-%m-%d %H:%M:%S"),distance,lightValue])
