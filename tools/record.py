@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 #建立record目錄
 directory = os.path.abspath("./record")
@@ -8,5 +9,10 @@ if not os.path.isdir(directory):  # 取得絕對路徑，尚未建立前狀態�
 
 
 def recordData(distance,lightValue):
-    print("紀錄")
+    current = datetime.now()   #抓取現在的時間
+    current_date = current.date()   #抓取現在時間中的日期
+    filename = current_date.strftime("%Y-%m-%d.csv")  #將抓到的日期轉為文字str
+    currentFiles = os.listdir(directory)  #使用listdir()顯示目錄內容
+    if filename not in currentFiles:
+        print(f"沒有{filename}此檔")
     
