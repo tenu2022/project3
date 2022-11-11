@@ -43,6 +43,9 @@ def recordData(distance,lightValue,absolute_Path):
     #print('日期',current.strftime("%Y-%m-%d %H:%M:%S"))
     #print('距離',distance)
     #print('亮度',lightValue)
+    relative_path_key = "private/raspberry1-47370-firebase-adminsdk-9eb4u-92da494d53.json"
+    full_path_key = os.path.join(absolute_Path,relative_path_key)
+    print("key:",full_path_key)
 
 #讀取資料
 def getData():
