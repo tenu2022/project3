@@ -1,6 +1,9 @@
 import os
 import csv
 from datetime import datetime
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 #建立record目錄
 #directory = os.path.abspath("./record")
@@ -10,9 +13,11 @@ from datetime import datetime
     # 一旦執行完第一次後，布林值就變成false，所以第二次後就永遠是false，不會再建立。
 
 full_path_csvFile = None
+db = None
 
 def recordData(distance,lightValue,absolute_Path):
     global full_path_csvFile
+    global db
     current = datetime.now()   #抓取現在的時間
     current_date = current.date()   #抓取現在時間中的日期
     filename = current_date.strftime("%Y-%m-%d.csv")  #將抓到的日期轉為文字str
@@ -46,6 +51,10 @@ def recordData(distance,lightValue,absolute_Path):
     relative_path_key = "private/raspberry1-47370-firebase-adminsdk-9eb4u-92da494d53.json"
     full_path_key = os.path.join(absolute_Path,relative_path_key)
     print("key:",full_path_key)
+    if db is None:
+        cred = credentials.Certificate(full_path_key)
+        app = firebase_admin.initialize_app(cred)
+        db = firestore.client()
 
 #讀取資料
 def getData():
